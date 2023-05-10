@@ -1,0 +1,176 @@
+---
+title: "`fedz1` Package"
+subtitle: "An Easier Access to Financial Accounts of the U.S. (Z.1)"
+author: "Hamid Shafiezadeh"
+date: 05/19/2023
+date-format: "MMM, YYYY"
+format:
+  revealjs: 
+    slide-number: true
+    chalkboard: 
+      buttons: false
+    preview-links: auto
+    logo: images/Rfinance_logo.png
+    css: styles.css
+    
+---
+
+## Introduction 
+
+The [Financial Accounts of the United States](https://www.federalreserve.gov/apps/fof/){target="_blank"}, known as Z1, contains data that track the movement of money among different sectors of the economy such as households and nonprofit organizations, nonfinancial corporate businesses, and nonfinancial noncorporate businesses. It includes data on transactions and levels of financial assets and liabilities and balance sheets. 
+
+
+## Introduction-continue 
+
+Data is publicly available, but due to the number of data sets and scattered tables and definitions, it is hard to understand, obtain, and analyze data.
+
+![](images/all.png){.border}
+
+
+::: footer
+Learn more: [tables](https://www.federalreserve.gov/apps/fof/FOFTables.aspx){target="_blank"}, [definitions](https://www.federalreserve.gov/apps/fof/Guide/z1_tables_description.pdf){target="_blank"}, and the [meaning of each series](https://www.federalreserve.gov/apps/fof/SeriesStructure.aspx){target="_blank"}
+:::
+
+## `fedz1:` data {auto-animate="true"}
+
+The objective of the `fedz1` package is to provide easier access to Z1 data. The project is a web scrapping that brings more than twenty thousand datasets into one place. 
+
+``` r
+# Load fedz1 package
+library(fedz1)
+get_series(choice="series")
+get_series(choice="tables")
+
+```
+
+::: footer
+Learn more: [fedz1](https://cran.r-project.org/web/packages/fedz1/fedz1.pdf){target="_blank"}
+:::
+
+## `fedz1:` functions {auto-animate="true"}
+
+In addition to access to all data, users can use function to explore [tables](https://www.federalreserve.gov/apps/fof/FOFTables.aspx){target="_blank"}, [definitions](https://www.federalreserve.gov/apps/fof/Guide/z1_tables_description.pdf){target="_blank"}, and the [meaning of each series](https://www.federalreserve.gov/apps/fof/SeriesStructure.aspx){target="_blank"}.
+
+``` r
+# Load fedz1 package
+library(fedz1)
+get_series(choice="series")
+get_series(choice="tables")
+
+
+search_series("Real estate investment trusts")#all series with the search
+search_tables("Nonfinancial Corporate Business")#series associated with a table
+meaning_of_prefix("FL")#definition of series
+table_descr(c('Net Capital Transfers',"Closed-End Funds"))#the definition of a table
+
+```
+
+## Example1: Analysis of Current events
+
+The plots show that in 2022Q4, the U.S. household purchase of Treasuries increased significantly and of Money Market Funds decreased. 
+
+```{r,include=FALSE}
+library(ggplot2)
+library(patchwork)
+library(ggthemes)
+options(scipen = 999)
+library(extrafont)
+
+load("df1.Rda")
+load("df2.Rda")
+
+ 
+plot1<-ggplot(df1,aes(x=name,y=value/1000))+
+  geom_col(width = 0.5,fill="#D55E00")+
+  theme_minimal()+
+  labs(x="",y="",title="Treasury Securities",
+       subtitle="Transaction Flows-2022 Q4($bln)")+
+  scale_y_continuous(labels=scales::dollar)+
+  theme(plot.title = element_text(family ="Courier New",face="bold",size=18),
+        plot.caption =  element_text(family ="Courier New",color="#4d060d"),
+        plot.subtitle = element_text(family ="Courier New",size=16),
+        axis.text.x=element_text(size=13.5),
+        axis.text.y=element_text(size=13.5),
+        strip.text.x = element_text(family ="Courier New",size=14,face="bold"),
+        panel.spacing = unit(0.5,"lines"),
+        legend.position="none")
+
+ 
+
+plot2<-ggplot(df2,aes(x=name,y=value/1000))+
+  geom_col(width = 0.5,fill="#56B4E9")+
+  theme_minimal()+
+  labs(x="",y="",title="Selected Household",
+       subtitle="Transaction Flows-2022 Q4($bln)")+
+  scale_y_continuous(labels=scales::dollar)+
+  theme(plot.title = element_text(family ="Courier New",face="bold",size=18),
+        plot.subtitle = element_text(family ="Courier New",size=16),
+        axis.text.x=element_text(size=13.5),
+        axis.text.y=element_text(size=13.5),
+        plot.caption =  element_text(family ="Courier New",color="#4d060d"),
+        strip.text.x = element_text(family ="Courier New",size=14,face="bold"),
+        panel.spacing = unit(0.5,"lines"),
+        legend.position="none")
+
+
+```
+
+```{r,fig.height=6,fig.width=12}
+plot1 / plot2
+```
+
+
+## Example2: Educational Purpose {.scrollable transition="slide}
+
+::: panel-tabset
+
+### Sector
+
+```{r}
+library(reactable)
+load("sector.Rda")
+
+reactable(
+  data       = sector,
+  compact    = TRUE, # for minimum row height
+  filterable = TRUE, # for individual column filters
+  striped    = TRUE, # banded rows
+  resizable  = TRUE, # for resizable column widths
+  groupBy    = "tname",
+  columns    = list( # define custom header name, width, alignment etc.
+    tname   = colDef(name = "Sector",   align = "left"),
+    Description = colDef(name = "Name")
+  ),
+  style      = list(fontSize="15px")
+)
+```
+
+### Instrument
+
+```{r}
+load("instrument.Rda")
+
+reactable(
+  data       = instrument,
+  compact    = TRUE, # for minimum row height
+  filterable = TRUE, # for individual column filters
+  striped    = TRUE, # banded rows
+  resizable  = TRUE, # for resizable column widths
+  groupBy    = "tname",
+  columns    = list( # define custom header name, width, alignment etc.
+    tname   = colDef(name = "Instrument",   align = "left"),
+    Description = colDef(name = "Name")
+  ),
+  style      = list(fontSize="15px")
+)
+```
+
+:::
+
+## Example3: Application 
+
+```{r test}
+knitr::include_app(url = "https://innovation2023.shinyapps.io/Rconf/", height = "600px")
+```
+
+
