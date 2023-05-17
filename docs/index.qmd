@@ -65,7 +65,7 @@ table_descr(c('Net Capital Transfers',"Closed-End Funds"))#the definition of a t
 
 ```
 
-## Example1: Analysis of Current events
+## Example1: Analysis of Current Events
 
 The household purchase of Treasuries increased significantly during the tightening monetary policy. 
 
