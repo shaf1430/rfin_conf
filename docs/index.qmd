@@ -17,10 +17,10 @@ format:
 
 ## Introduction 
 
-The [Financial Accounts of the United States](https://www.federalreserve.gov/apps/fof/){target="_blank"}, known as Z1, contains data that track the movement of money among different sectors of the economy such as households and nonprofit organizations, nonfinancial corporate businesses, and nonfinancial noncorporate businesses. It includes data on transactions and levels of financial assets and liabilities and balance sheets. 
+The [Financial Accounts of the United States](https://www.federalreserve.gov/apps/fof/){target="_blank"}, known as Z1, contains data that track the movement of money among different sectors of the economy such as households and nonprofit organizations, nonfinancial corporate businesses, and nonfinancial noncorporate businesses. It includes data on transactions and levels of financial assets, liabilities and balance sheets. 
 
 
-## Introduction-continue 
+## Data 
 
 Data is publicly available, but due to the number of data sets and scattered tables and definitions, it is hard to understand, obtain, and analyze data.
 
@@ -49,7 +49,7 @@ Learn more: [fedz1](https://cran.r-project.org/web/packages/fedz1/fedz1.pdf){tar
 
 ## `fedz1:` functions {auto-animate="true"}
 
-In addition to access to all data, users can use function to explore [tables](https://www.federalreserve.gov/apps/fof/FOFTables.aspx){target="_blank"}, [definitions](https://www.federalreserve.gov/apps/fof/Guide/z1_tables_description.pdf){target="_blank"}, and the [meaning of each series](https://www.federalreserve.gov/apps/fof/SeriesStructure.aspx){target="_blank"}.
+In addition to access to all data, users can utilize functions to explore [tables](https://www.federalreserve.gov/apps/fof/FOFTables.aspx){target="_blank"}, [definitions](https://www.federalreserve.gov/apps/fof/Guide/z1_tables_description.pdf){target="_blank"}, and the meaning of each [series](https://www.federalreserve.gov/apps/fof/SeriesStructure.aspx){target="_blank"}.
 
 ``` r
 # Load fedz1 package
@@ -67,7 +67,7 @@ table_descr(c('Net Capital Transfers',"Closed-End Funds"))#the definition of a t
 
 ## Example1: Analysis of Current events
 
-The plots show that in 2022Q4, the U.S. household purchase of Treasuries increased significantly and of Money Market Funds decreased. 
+The household purchase of Treasuries increased significantly during the tightening monetary policy. 
 
 ```{r,include=FALSE}
 library(ggplot2)
@@ -120,7 +120,7 @@ plot1 / plot2
 ```
 
 
-## Example2: Educational Purpose {.scrollable transition="slide}
+## Example2: Educational Purpose 
 
 ::: panel-tabset
 
