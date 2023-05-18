@@ -120,7 +120,7 @@ plot1 / plot2
 ```
 
 
-## Example2: Educational Purpose 
+## Example2: Educational Purpose {.scrollable}
 
 ::: panel-tabset
 
