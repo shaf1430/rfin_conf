@@ -128,10 +128,10 @@ plot1 / plot2
 
 ```{r}
 library(reactable)
-load("sector.Rda")
+load("instrument.Rda")
 
 reactable(
-  data       = sector,
+  data       = instrument,
   compact    = TRUE, # for minimum row height
   filterable = TRUE, # for individual column filters
   striped    = TRUE, # banded rows
@@ -148,10 +148,10 @@ reactable(
 ### Instrument
 
 ```{r}
-load("instrument.Rda")
+load("sector.Rda")
 
 reactable(
-  data       = instrument,
+  data       = sector,
   compact    = TRUE, # for minimum row height
   filterable = TRUE, # for individual column filters
   striped    = TRUE, # banded rows
