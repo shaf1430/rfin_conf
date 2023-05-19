@@ -138,7 +138,7 @@ reactable(
   resizable  = TRUE, # for resizable column widths
   groupBy    = "tname",
   columns    = list( # define custom header name, width, alignment etc.
-    tname   = colDef(name = "Sector",   align = "left"),
+    tname   = colDef(name = "Instrument",   align = "left"),
     Description = colDef(name = "Name")
   ),
   style      = list(fontSize="15px")
@@ -158,7 +158,7 @@ reactable(
   resizable  = TRUE, # for resizable column widths
   groupBy    = "tname",
   columns    = list( # define custom header name, width, alignment etc.
-    tname   = colDef(name = "Instrument",   align = "left"),
+    tname   = colDef(name = "Sector",   align = "left"),
     Description = colDef(name = "Name")
   ),
   style      = list(fontSize="15px")
